@@ -1,4 +1,3 @@
-
 # translate a numeric vecotor to factor in 
 # a human readable format.
 # this is only for 2^k to "K","M","G" translation
@@ -42,3 +41,22 @@ translate_to_human_readable <- function(x)
     }
      
 }
+
+# This function takes a numeric vector as input and
+# output a char vector. 
+# This one will round the nubmer to 1 xiao shu dian.
+format_2exp <- function(x) {
+   {
+	exps <- seq(10, 70, by=10)
+    limits <- c(0, 2^exps) # 0, 1024, 1024*1024, ...
+    prefix <- c("", "K", "M", "G", "T", "P", "E", "Z")
+  
+    # Vector with array indices according to position in intervals
+    i <- findInterval(abs(x), limits)
+    limits[1] = 1
+    paste(format(round(x/limits[i], 1),
+                 trim=TRUE, scientific=FALSE),
+          prefix[i])
+  }
+}
+
